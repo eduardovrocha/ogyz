@@ -1,0 +1,30 @@
+version: '3'
+services:
+  web:
+    build: .
+    command: [rails, server, puma, -p, "3002", -b, 0.0.0.0]
+    volumes:
+      - .:/ogyz
+    ports:
+      - "3002:3002"
+    depends_on:
+      - webpacker
+      - postgres
+  postgres:
+    image: postgres:12.2
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=ogyz_development
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - MAX_CONNECTIONS=300
+  webpacker:
+    build: .
+    command: bundle exec bin/webpack-dev-server
+    volumes:
+      - .:/ogyz
+    ports:
+      - "8080:8080"
