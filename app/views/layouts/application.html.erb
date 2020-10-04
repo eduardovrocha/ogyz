@@ -7,9 +7,23 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>
-    <%= yield %>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+      <h5 class="my-0 mr-md-auto font-weight-normal">Ogyz Company</h5>
+      <nav class="my-2 my-md-0 mr-md-3">
+        <%= link_to 'Authors', authors_path, class: 'p-2 text-dark' %>
+        <%= link_to 'Books', books_path, class: 'p-2 text-dark' %>
+        <%= link_to 'Readers', '', class: 'p-2 text-dark' %>
+        <% member_signed_in? do %>
+          <a class="btn btn-outline-primary" href="#">Sign up</a>
+        <% end %>
+      </nav>
+    </div>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
