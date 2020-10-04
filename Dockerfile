@@ -14,10 +14,17 @@ COPY Gemfile.lock /ogyz/Gemfile.lock
 RUN bundle install
 COPY . /ogyz
 
+# Install foreman
+RUN gem install foreman
+
+# Add default foreman config
+ADD Procfile /ogyz
+
 # script's to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
-CMD ["rails", "server"]
+CMD bundle exec rake assets:precompile && foreman start -f Procfile
+#CMD ["rails", "server"]
 
 EXPOSE 3002

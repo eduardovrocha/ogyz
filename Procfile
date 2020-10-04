@@ -1,0 +1,1 @@
+webpack: ./bin/bash webpack
