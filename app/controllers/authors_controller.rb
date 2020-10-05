@@ -4,7 +4,12 @@ class AuthorsController < ApplicationController
   # GET /authors
   # GET /authors.json
   def index
-    @authors = Author.all
+    logger.debug("#{params}")
+    if (params[:page].nil?)
+      @authors = Author.paginate(page: 1, per_page: 5)
+    else
+      @authors = Author.paginate(page: params[:page], per_page: params[:per_page])
+    end
   end
 
   # GET /authors/1

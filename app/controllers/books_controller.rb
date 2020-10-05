@@ -2,10 +2,15 @@ class BooksController < ApplicationController
   before_action :authenticate_member!
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
-  # GET /books
+  # GET /books?page=3&per_page=10
   # GET /books.json
   def index
-    @books = Book.all
+    logger.debug("#{params}")
+    if (params[:page].nil?)
+      @books = Book.paginate(page: 1)
+    else
+      @books = Book.paginate(page: params[:page])
+    end
   end
 
   # GET /books/1
