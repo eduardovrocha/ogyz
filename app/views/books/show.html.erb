@@ -1,24 +1,24 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @book.title %>
-</p>
+<h1 class="my-4"><%= @book.title %></h1>
 
-<p>
-  <strong>Author:</strong>
-  <%= @book.author_id %>
-</p>
+<!-- Portfolio Item Row -->
+<div class="row">
 
-<p>
-  <strong>Image:</strong>
-  <%= @book.image %>
-</p>
+  <div class="col-md-8">
+    <img class="img-fluid" src="<%= @book.image %>" alt="">
+  </div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @book.description %>
-</p>
+  <div class="col-md-4">
+    <h3 class="my-3">Description</h3>
+    <p><%= @book.description %></p>
+    <h3 class="my-3">about ...</h3>
+    <ul>
+      <li><%= @book.author_id %></li>
+    </ul>
+  </div>
+
+</div>
 
 <%= link_to 'Edit', edit_book_path(@book) %> |
 <%= link_to 'Back', books_path %>
