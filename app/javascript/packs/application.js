@@ -8,10 +8,21 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
-require( 'datatables.net-bs4' )();
+// require( 'datatables.net-bs4' )();
 
 import '../stylesheets/application.scss'
+import 'bootstrap'
 
+import {Application} from 'stimulus'
+import {definitionsFromContext} from "stimulus/webpack-helpers"
+
+const application = Application.start()
+const context_main = require.context('controllers', true, /.js$/)
+application.load(definitionsFromContext(context_main))
+
+document.addEventListener("turbolinks:load", () => {
+    $('.toast').toast('show');
+})
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -19,5 +30,3 @@ import '../stylesheets/application.scss'
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
-
-import "controllers"
