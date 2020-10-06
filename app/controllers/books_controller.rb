@@ -5,11 +5,17 @@ class BooksController < ApplicationController
   # GET /books?page=3&per_page=10
   # GET /books.json
   def index
-    logger.debug("#{params}")
-    if (params[:page].nil?)
+    if params[:query].present?
+      @books = BookSearch.new(params)
+    elsif (params[:page].nil?)
       @books = Book.paginate(page: 1)
     else
       @books = Book.paginate(page: params[:page])
+    end
+
+    respond_to do |format|
+      format.html
+      format.json { render json: {books: @books} }
     end
   end
 
@@ -68,13 +74,14 @@ class BooksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_book
-      @book = Book.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def book_params
-      params.require(:book).permit(:title, :author_id, :image, :description)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_book
+    @book = Book.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def book_params
+    params.require(:book).permit(:title, :author_id, :image, :description)
+  end
 end

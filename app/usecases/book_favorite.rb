@@ -1,4 +1,4 @@
-class FavoriteBook
+class BookFavorite
 
   def initialize(book_id, user)
     @book_id = book_id

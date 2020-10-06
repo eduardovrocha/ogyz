@@ -40,5 +40,11 @@ module Ogyz
                        routing_specs: true
     end
 
+    # Adding usecases dir to the autoload path
+    config.autoload_paths += Dir[
+        "#{Ogyz::Application.config.root}/app/usecases",
+        "#{Ogyz::Application.config.root}/app/presenters"
+    ]
+
   end
 end
