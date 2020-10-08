@@ -7,8 +7,8 @@ class BooksController < ApplicationController
   def index
 
     if params[:query].present?
-      # @books = BookSearch.new(params)
-      @books = Book.paginate(page: 1, per_page: 5)
+      @books = Book.all.ransack(title_or_author_or_description_cont: params[:query]).result
+                   .order("#{params[:order_by]} #{params[:flow]}").paginate(page: 1, per_page: 5)
     elsif (params[:page].nil?)
       @books = Book.paginate(page: 1, per_page: 5)
     else
