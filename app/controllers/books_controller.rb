@@ -5,17 +5,19 @@ class BooksController < ApplicationController
   # GET /books?page=3&per_page=10
   # GET /books.json
   def index
+
     if params[:query].present?
-      @books = BookSearch.new(params)
+      # @books = BookSearch.new(params)
+      @books = Book.paginate(page: 1, per_page: 5)
     elsif (params[:page].nil?)
-      @books = Book.paginate(page: 1)
+      @books = Book.paginate(page: 1, per_page: 5)
     else
-      @books = Book.paginate(page: params[:page])
+      @books = Book.paginate(page: 1, per_page: 5)
     end
 
     respond_to do |format|
       format.html
-      format.json { render json: {books: @books} }
+      format.json
     end
   end
 
