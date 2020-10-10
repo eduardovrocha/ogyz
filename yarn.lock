@@ -2448,7 +2448,7 @@ datatables.net-bs4@^1.10.22:
     datatables.net "1.10.22"
     jquery ">=1.7"
 
-datatables.net@1.10.22:
+datatables.net@1.10.22, datatables.net@^1.10.20:
   version "1.10.22"
   resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-1.10.22.tgz#975d4ffb1eb40dec5fb772eaf93796ec1a948b55"
   integrity sha512-ujn8GvkQIBYzYH54XY7OrI0Zb35TKRd9ABYfbnXgBfwTGIFT6UsmXrfHU5Yk+MSDoF0sDu2TB+31V6c+zUZ0Pw==
@@ -6821,6 +6821,14 @@ stdout-stream@^1.4.0:
   integrity sha512-j4emi03KXqJWcIeF8eIXkjMFN1Cmb8gUlDYGeBALLPo5qdyTfA9bOtl8m33lRoC+vFMkP3gl0WsDr6+gzxbbTA==
   dependencies:
     readable-stream "^2.0.1"
+
+stimulus-datatables@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/stimulus-datatables/-/stimulus-datatables-1.0.6.tgz#b5550e47c86d97b4c4a597db21842077c25efc2c"
+  integrity sha512-802NmQ7oK7YXC0zwvAbuI8tnGYPe8JguFyPHtcmLow8hlz6E7YP+jY8PVSXBEuVEI+YBOcpV0w5cWZ1gD35xFA==
+  dependencies:
+    datatables.net "^1.10.20"
+    stimulus "^1.1.1"
 
 stimulus@^1.1.1:
   version "1.1.1"

@@ -13,6 +13,7 @@ export default class extends Controller {
 
     submit() {
         const value = this.queryTarget.value
+        console.log(this.element)
         Rails.ajax({
             type: "GET",
             url: `/?query=${value}`,
@@ -29,6 +30,7 @@ export default class extends Controller {
                     bookHTML += this.bookTemplate(book);
                 });
                 this.booksTarget.innerHTML = bookHTML;
+                // this.booksTarget.DataTable();
             }
         })
     }

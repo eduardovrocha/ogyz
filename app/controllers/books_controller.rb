@@ -1,24 +1,17 @@
 class BooksController < ApplicationController
-  before_action :authenticate_member!
+  # before_action :authenticate_member!
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
   # GET /books?page=3&per_page=10
   # GET /books.json
   def index
-
     if params[:query].present?
-      @books = Book.all.ransack(title_or_author_or_description_cont: params[:query]).result
-                   .order("#{params[:order_by]} #{params[:flow]}").paginate(page: 1, per_page: 5)
-    elsif (params[:page].nil?)
-      @books = Book.paginate(page: 1, per_page: 5)
-    else
-      @books = Book.paginate(page: 1, per_page: 5)
+      @books = BookSearch.new(params).call
+      render json: @books
     end
-
-    respond_to do |format|
-      format.html
-      format.json
-    end
+    @books = Book.all
+                 .order("#{params[:order_by]} #{params[:flow]}")
+                 .paginate(page: params[:page], per_page: 5)
   end
 
   # GET /books/1
@@ -39,7 +32,6 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.new(book_params)
-
     respond_to do |format|
       if @book.save
         format.html { redirect_to @book, notice: 'Book was successfully created.' }

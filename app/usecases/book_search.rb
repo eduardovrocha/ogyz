@@ -1,14 +1,14 @@
 class BookSearch
 
   def initialize(params)
-    @page = params[:page] || 1
-    @per_page = params[:per_page] || 10
-    @query = params[:query]
+    @params = params
   end
 
   def call
-    puts ">>> {query: #{@query}, per_page: #{@per_page}, page: #{@page}}"
-    books = Book.paginate(page: 1)
+    puts ">>> {query: #{@params}"
+    books = Book.all.ransack(title_or_description_cont: @params[:query]).result
+                .paginate(page: 1, per_page: 5)
+    puts books.count
     return books
   rescue ActiveRecord::RecordNotFound
 

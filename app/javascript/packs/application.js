@@ -8,17 +8,20 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
-// require( 'datatables.net-bs4' )();
+require('datatables.net')
 
 import '../stylesheets/application.scss'
 import 'bootstrap'
+import Datatable from 'stimulus-datatables'
 
 import {Application} from 'stimulus'
 import {definitionsFromContext} from "stimulus/webpack-helpers"
 
 const application = Application.start()
 const context_main = require.context('controllers', true, /.js$/)
+
 application.load(definitionsFromContext(context_main))
+application.register('datatable', Datatable)
 
 document.addEventListener("turbolinks:load", () => {
     $('.toast').toast('show');
