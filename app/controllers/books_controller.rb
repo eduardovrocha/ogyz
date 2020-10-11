@@ -4,14 +4,22 @@ class BooksController < ApplicationController
 
   # GET /books?page=3&per_page=10
   # GET /books.json
+
   def index
-    if params[:query].present?
-      @books = BookSearch.new(params).call
-      render json: @books
+    list_for_books = Struct.new(:draw, :data, :recordsTotal, :recordsFiltered)
+    @books = list_for_books.new(1, nil, Book.all.count, 0)
+
+    if params[:search].present?
+      books = BookSearch.new(params[:search], params[:length]).call
+      @books.recordsFiltered = books.count
+      @books.data = books
     end
-    @books = Book.all
-                 .order("#{params[:order_by]} #{params[:flow]}")
-                 .paginate(page: params[:page], per_page: 5)
+
+    respond_to do |format|
+      format.html
+      format.json
+    end
+
   end
 
   # GET /books/1
