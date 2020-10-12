@@ -4,22 +4,18 @@ class BooksController < ApplicationController
 
   # GET /books?page=3&per_page=10
   # GET /books.json
-
   def index
     list_for_books = Struct.new(:draw, :data, :recordsTotal, :recordsFiltered)
     @books = list_for_books.new(1, nil, Book.all.count, 0)
-
     if params[:search].present?
       books = BookSearch.new(params[:search], params[:length]).call
       @books.recordsFiltered = books.count
       @books.data = books
     end
-
     respond_to do |format|
       format.html
       format.json
     end
-
   end
 
   # GET /books/1

@@ -8,6 +8,6 @@ json.data do
     json.title book.title
     json.description book.description
     json.image book.image
-    json.author book.author.name
+    # json.author book.author.name
   end
 end
